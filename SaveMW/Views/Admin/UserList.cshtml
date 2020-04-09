@@ -1,0 +1,51 @@
+﻿@using SaveMW.Extensions
+@using SaveMW.Models.Filters
+@model SaveMW.Models.AdminViewModels.AdminIndexViewModel
+
+
+@{
+    ViewBag.Title = "Список пользователей";
+}
+
+<h1>Список пользователей</h1>
+
+@Html.Partial("_SearchUser", new UserFilter())
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.SortLink("Логин", "UserName", "UserList", "Admin", null)
+        </th>
+        <th>
+            @Html.SortLink("ФИО", "FIO", "UserList", "Admin", null)
+        </th>
+        <th>
+            Статус
+        </th>
+    </tr>
+
+    @foreach (var item in Model.Users)
+    {
+        <tr>
+            <td>
+                @item.UserName
+            </td>
+            <td>
+                @item.FIO
+            </td>
+            <td>
+                @item.UserStatus
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
+
+</table>
+<br />
+<div class="btn-group">
+    @Html.PageLinks(Model.Paging, x => Url.Action("UserList", new { page = x }))
+</div>
