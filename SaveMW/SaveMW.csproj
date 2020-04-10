@@ -206,7 +206,8 @@
     <Compile Include="Models\AccountViewModels\InfoViewModel.cs" />
     <Compile Include="Models\AccountViewModels\LoginViewModel.cs" />
     <Compile Include="Models\AccountViewModels\RegisterViewModel.cs" />
-    <Compile Include="Models\AdminViewModels\AdminIndexViewModel.cs" />
+    <Compile Include="Models\AdminViewModels\AdminUserListViewModel.cs" />
+    <Compile Include="Models\AdminViewModels\DeleteUserViewModel.cs" />
     <Compile Include="Models\Paging.cs" />
     <Compile Include="Models\SortLinkModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -262,6 +263,7 @@
     <Content Include="Views\Admin\UserList.cshtml" />
     <Content Include="Views\Shared\SortLink.cshtml" />
     <Content Include="Views\Shared\_SearchUser.cshtml" />
+    <Content Include="Views\Admin\DeleteUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\UploadFiles\" />

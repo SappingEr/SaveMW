@@ -40,8 +40,8 @@ namespace SaveMW.Models.Repositories
         public IList<User> Find(UserFilter filter, FetchOptions options = null)
         {
             var crit = session.CreateCriteria<User>();           
-            SetupFetchOptions(crit, options);
             SetupFilter(filter, crit);
+            SetupFetchOptions(crit, options);
             return crit.List<User>();
         }
 

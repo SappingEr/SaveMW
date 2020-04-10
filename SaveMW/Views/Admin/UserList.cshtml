@@ -1,11 +1,14 @@
 ﻿@using SaveMW.Extensions
 @using SaveMW.Models.Filters
-@model SaveMW.Models.AdminViewModels.AdminIndexViewModel
+@model SaveMW.Models.AdminViewModels.AdminUserListViewModel
 
 
 @{
     ViewBag.Title = "Список пользователей";
 }
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "AjaxAntiForgeryForm" }))
+{@Html.AntiForgeryToken()}
 
 <h1>Список пользователей</h1>
 
@@ -22,6 +25,7 @@
         <th>
             Статус
         </th>
+        <th></th>
     </tr>
 
     @foreach (var item in Model.Users)
@@ -34,18 +38,61 @@
                 @item.FIO
             </td>
             <td>
-                @item.UserStatus
+                @if (item.UserStatus == SaveMW.Models.UserStatus.Active)
+                {
+                    <button id="@item.Id" type="button" class="userStatus btn btn-danger btn-sm">Заблокировать</button>
+                }
+                else
+                {
+                    <button id="@item.Id" type="button" class="userStatus btn btn-success btn-sm">Разблокировать</button>
+                }
+
+
+
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                <a href="@Url.Action("DeleteUser", "Admin", new { id = item.Id })" class="btn btn-danger" role="button">
+                    <span class="glyphicon glyphicon-trash"></span> Удалить
+                </a>                
             </td>
         </tr>
     }
-
 </table>
 <br />
 <div class="btn-group">
-    @Html.PageLinks(Model.Paging, x => Url.Action("UserList", new { page = x }))
+    @Html.PageLinks(Model.Paging, x => Url.Action("UserList", new
+    {
+        page = x,
+        SortExpression = Model.FetchOptions.SortExpression,
+        SortDirection = Model.FetchOptions.SortDirection
+    }))
 </div>
+
+
+@section scripts
+{
+    <script>
+
+        var form = $('#AjaxAntiForgeryForm');
+        var token = $('input[name="__RequestVerificationToken"]', form).val();
+
+        $(document).on('click', '.userStatus', function () {
+            let id = this.id;
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("UserStatus", "Admin")',
+                dataType: 'json',
+                data: { __RequestVerificationToken: token, id: id },
+                success: function (response) {
+                    alert(response.responseText);
+                    location.reload();
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+
+    </script>
+}

@@ -1,0 +1,32 @@
+﻿@model SaveMW.Models.AdminViewModels.DeleteUserViewModel
+
+@{
+    ViewBag.Title = "Удаление пользователя";
+}
+
+<h2>Удалить данного пользователя?</h2>
+
+<h3>
+    @Html.DisplayFor(model => model.UserName)
+</h3>
+<h3>
+    @Html.DisplayFor(model => model.FIO)
+</h3>
+<div>
+    <hr />
+
+    @using (Html.BeginForm("DeleteUser", "Admin", FormMethod.Post))
+    {
+
+        @Html.AntiForgeryToken()
+
+        @Html.Hidden("Id", Model.Id)
+
+        <div>
+            <button type="submit" class="btn btn-danger">
+                <span class="glyphicon glyphicon-trash"></span> Удалить пользователя
+            </button> |
+            @Html.ActionLink("Назад", "UserList")
+        </div>
+    }
+</div>

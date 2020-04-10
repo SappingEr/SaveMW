@@ -28,6 +28,11 @@ namespace SaveMW.Models.Repositories
             session.Save(entity);
         }
 
+        public virtual void Delete(T entity)
+        {
+            session.Delete(entity);
+        }
+
         public virtual void SaveOrUpdate(T entity)
         {
             session.SaveOrUpdate(entity);
