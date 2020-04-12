@@ -25,6 +25,15 @@ namespace SaveMW
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/tinymce").Include(
+                       "~/Scripts/tinymce/tinymce.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/tagify").Include(
+                       "~/Scripts/tagify/jQuery.tagify.min.js"));
+
+            bundles.Add(new StyleBundle("~/Scripts/tagify").Include(
+                      "~/Content/tagify/tagify.css"));
         }
     }
 }

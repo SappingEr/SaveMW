@@ -7,7 +7,7 @@ namespace SaveMW.Models.Mappings
         public NoteMap()
         {
             Id(n => n.Id);
-            Map(n => n.Name).Length(50);
+            Map(n => n.Name).Length(150);
             Map(n => n.Text).Length(int.MaxValue);
             Map(n => n.CreationDate);
             References(n => n.Author);

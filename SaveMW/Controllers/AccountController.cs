@@ -52,7 +52,8 @@ namespace SaveMW.Controllers
         {
             if (!User.Identity.IsAuthenticated)
             {
-                return View();
+                RegisterViewModel registerModel = new RegisterViewModel();
+                return View(registerModel);
             }
             else
             {

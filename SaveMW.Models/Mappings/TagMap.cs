@@ -12,7 +12,7 @@ namespace SaveMW.Models.Mappings
         public TagMap()
         {
             Id(t => t.Id);
-            Map(t => t.Name);
+            Map(t => t.Name).Length(50);
             References(t => t.Note);
         }
     }

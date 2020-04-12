@@ -95,6 +95,7 @@
     <Compile Include="Filters\Range.cs" />
     <Compile Include="Filters\TagFilter.cs" />
     <Compile Include="Filters\UserFilter.cs" />
+    <Compile Include="Interfaces\IFileContent.cs" />
     <Compile Include="Mappings\FileMap.cs" />
     <Compile Include="Mappings\NoteMap.cs" />
     <Compile Include="Mappings\TagMap.cs" />
