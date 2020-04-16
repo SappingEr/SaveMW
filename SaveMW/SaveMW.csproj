@@ -197,8 +197,13 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NoteController.cs" />
-    <Compile Include="Extensions\HtmlExtensions.cs" />
-    <Compile Include="Extensions\PagingHelpers.cs" />
+    <Compile Include="Extensions\DBFileProvider.cs" />
+    <Compile Include="Extensions\FSFileProvider.cs" />
+    <Compile Include="Extensions\IFileProvider.cs" />
+    <Compile Include="Extensions\FileProviderOp.cs" />
+    <Compile Include="Extensions\TagSerializer.cs" />
+    <Compile Include="Helpers\HtmlExtensions.cs" />
+    <Compile Include="Helpers\PagingHelpers.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -432,7 +437,7 @@
     <Content Include="Scripts\tinymce\langs\readme.md" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\UploadFiles\" />
+    <Folder Include="App_Data\UploadFiles\" />
     <Folder Include="Scripts\tinymce\themes\advanced\" />
     <Folder Include="Scripts\tinymce\themes\skin\" />
     <Folder Include="Views\Base\" />

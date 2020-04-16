@@ -11,6 +11,7 @@ namespace SaveMW.Models.Mappings
             Map(u=>u.Password).Column("PasswordHash");
             Map(u => u.FIO).Length(150);
             Map(u => u.UserStatus);
+            References(u => u.Avatar).Cascade.All();
             HasMany(u => u.Notes).Cascade.All();
         }
 

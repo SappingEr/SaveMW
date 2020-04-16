@@ -19,5 +19,7 @@ namespace SaveMW.Models
         public virtual IList<Note> Notes { get; set; } = new List<Note>();
 
         public virtual UserStatus UserStatus { get; set; }
+
+        public virtual DBFile Avatar { get; set; }
     }
 }

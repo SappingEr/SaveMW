@@ -1,11 +1,12 @@
 ﻿using NHibernate;
 using NHibernate.Criterion;
 using SaveMW.Models.Filters;
+using System.Collections.Generic;
 
 namespace SaveMW.Models.Repositories
 {
     [Repository]
-    class TagRepository : Repository<Tag, TagFilter>
+    public class TagRepository : Repository<Tag, TagFilter>
     {
         public TagRepository(ISession session) :
            base(session)
@@ -22,6 +23,13 @@ namespace SaveMW.Models.Repositories
                     crit.Add(Restrictions.Like("Name", filter.Name, MatchMode.Anywhere));
                 }                
             }
+        }
+
+        public IList<Tag> SavedTags(string[] tags)
+        {
+            var crit = session.CreateCriteria<Tag>()
+                .Add(Restrictions.InG("Name", tags));
+            return crit.List<Tag>();
         }
     }
 }

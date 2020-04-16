@@ -87,21 +87,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBFile.cs" />
     <Compile Include="FetchOptions.cs" />
     <Compile Include="File.cs" />
     <Compile Include="Filters\BaseFilter.cs" />
     <Compile Include="Filters\DateRange.cs" />
+    <Compile Include="Filters\DBFileFilter.cs" />
+    <Compile Include="Filters\FSFileFilter.cs" />
     <Compile Include="Filters\NoteFilter.cs" />
     <Compile Include="Filters\Range.cs" />
     <Compile Include="Filters\TagFilter.cs" />
     <Compile Include="Filters\UserFilter.cs" />
-    <Compile Include="Interfaces\IFileContent.cs" />
+    <Compile Include="FSFile.cs" />
+    <Compile Include="Mappings\DBFileMap.cs" />
     <Compile Include="Mappings\FileMap.cs" />
+    <Compile Include="Mappings\FSFileMap.cs" />
     <Compile Include="Mappings\NoteMap.cs" />
     <Compile Include="Mappings\TagMap.cs" />
     <Compile Include="Mappings\UserMap.cs" />
     <Compile Include="Note.cs" />
     <Compile Include="Repositories\FastSearchAttribute.cs" />
+    <Compile Include="Repositories\DBFileRepository.cs" />
+    <Compile Include="Repositories\FSFileRepository.cs" />
     <Compile Include="Repositories\NoteRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Repositories\RepositoryAttribute.cs" />

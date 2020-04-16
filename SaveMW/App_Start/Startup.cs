@@ -13,6 +13,7 @@ using Owin;
 using SaveMW.App_Start;
 using SaveMW.Auth;
 using SaveMW.Controllers;
+using SaveMW.Extensions;
 using SaveMW.Models;
 using SaveMW.Models.Repositories;
 using System;
@@ -72,7 +73,22 @@ namespace SaveMW.App_Start
                 builder.RegisterType(type);
             }
 
+            builder.RegisterType<FSFileProvider>().As<IFileProvider>();
+
+            builder.RegisterType<TagSerializer>();
+
+            //var fileProviderInterfaceName = typeof(IFileProvider).FullName;
+            //foreach (var type in Assembly.GetAssembly(typeof(Startup)).GetTypes())
+            //{
+            //    var inter = type.GetInterface(fileProviderInterfaceName);
+            //    if (inter != null)
+            //    {
+            //        builder.RegisterType(type).As<IFileProvider>();
+            //    }
+            //}
+
             builder.RegisterControllers(Assembly.GetAssembly(typeof(HomeController)));
+
             builder.RegisterModule(new AutofacWebTypesModule());
             var container = builder.Build();
 

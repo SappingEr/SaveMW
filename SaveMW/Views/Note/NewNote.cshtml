@@ -41,10 +41,11 @@
 
 
             <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">                   
-                        <label class="btn btn-default">
-                            Прикрепить файлы <input type="file" name="files" multiple="multiple" accept=".jpg, .docx" hidden>
-                        </label>                   
+                <label for="fUpload" class="control-label col-md-2">Файлы</label>
+                <div id="fUpload" class="col-md-10">
+                    <label class="btn btn-default">
+                        Прикрепить файлы (не больше 3) <input type="file" name="files" multiple="multiple" accept=".pdf, .docx" hidden>
+                    </label>
                 </div>
             </div>
 
@@ -77,7 +78,7 @@
                     plugins: "code"
                 });
 
-                $('[name=tags]').tagify({ delimiters: " " });
+                $('[name=tags]').tagify({ delimiters: " "});
 
             });
         </script>

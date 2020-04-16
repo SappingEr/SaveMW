@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SaveMW.Models
 {
@@ -18,7 +15,7 @@ namespace SaveMW.Models
 
         public virtual User Author { get; set; }
 
-        public virtual File File { get; set; }
+        public virtual IList<FSFile> Files { get; set; }
 
         public virtual IList<Tag> Tags { get; set; } = new List<Tag>();
     }
