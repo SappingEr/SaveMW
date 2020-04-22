@@ -1,0 +1,96 @@
+﻿@using SaveMW.Extensions
+@using SaveMW.Models.Filters
+@model SaveMW.Models.NoteViewModels.NotesPagingListViewModel
+
+@{
+    ViewBag.Title = "Заметки";
+}
+
+<h1>Заметки</h1>
+<div class="row">
+    <div class="col-md-2">
+        <a href="@Url.Action("NewNote", "Note", new { id = Model.Id })" class="btn-lg btn-success btn-block" role="button">
+            Новая Заметка
+        </a>
+    </div>
+</div>
+
+<br />
+
+<div class="row">
+    <b class="col-md-2">Порядок сортировки: </b>
+
+    <div class="col-md-2">
+        <div class="well well-sm">@Html.SortLink("По имени", "Name", "Notes", "Note", null)</div>
+    </div>
+
+    <div class="col-md-2">
+        <div class="well well-sm">@Html.SortLink("По дате", "CreationDate", "Notes", "Note", null)</div>
+    </div>
+
+    <div class="col-md-4">
+        @Html.Partial("_SearchNote", new NoteFilter())
+    </div>
+    <div class="col-md-2">
+        <a href="@Url.Action("Search", "Note", new { id = Model.Id })" class="btn btn-default btn-block" role="button">
+            Расширенный поиск
+        </a>
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        @foreach (var note in Model.Notes)
+        {
+
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a href="@Url.Action("NoteEdit", "Note", new { id = note.Id })">
+                            <h3 class="text-center">@note.Name</h3>
+                        </a>
+                        @if (note.Tags.Count > 0)
+                        {
+                            foreach (var tag in note.Tags)
+                            {
+                                <span class="label label-info">@tag.Name</span>
+                            }
+                        }
+                    </div>
+
+                    <div class="panel-body">
+                        <h4 class="text-center">Документы:</h4>
+                        @if (note.Files.Count > 0)
+                        {
+                            foreach (var file in note.Files)
+                            {
+                                <p> - @file.Name</p>
+                            }
+                        }
+                        else
+                        {
+                            <p>Нет прикреплённых файлов</p>
+                        }
+                    </div>
+
+                    <div class="panel-footer">
+                        <p class="text-right">@note.CreationDate.ToString("d")</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+<div class="btn-group">
+    @Html.PageLinks(Model.Paging, x => Url.Action("Notes", new
+    {
+        page = x,
+        SortExpression = Model.FetchOptions.SortExpression,
+        SortDirection = Model.FetchOptions.SortDirection
+    }))
+</div>

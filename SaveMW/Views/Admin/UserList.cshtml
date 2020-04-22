@@ -8,7 +8,9 @@
 }
 
 @using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "AjaxAntiForgeryForm" }))
-{@Html.AntiForgeryToken()}
+{
+    @Html.AntiForgeryToken()
+}
 
 <h1>Список пользователей</h1>
 

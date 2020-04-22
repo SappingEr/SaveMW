@@ -1,0 +1,11 @@
+﻿@using SaveMW.Models.Filters
+
+@{
+    ViewBag.Title = "Расширенный поиск";
+}
+
+<h2>Расширенный поиск заметок</h2>
+
+@Html.Partial("_ExtSearchNote", new NoteFilter())
+
+@Html.Partial("_SearchTag", new NoteFilter())

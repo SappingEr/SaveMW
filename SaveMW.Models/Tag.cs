@@ -1,4 +1,6 @@
-﻿namespace SaveMW.Models
+﻿using System.Collections.Generic;
+
+namespace SaveMW.Models
 {
     public class Tag
     {
@@ -6,6 +8,6 @@
 
         public virtual string Name { get; set; }
 
-        public virtual Note Note { get; set; }
+        public virtual IList<Note> Notes { get; set; }
     }
 }

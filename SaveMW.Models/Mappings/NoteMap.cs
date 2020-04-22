@@ -12,7 +12,7 @@ namespace SaveMW.Models.Mappings
             Map(n => n.CreationDate);
             References(n => n.Author);
             HasMany(n => n.Files).Cascade.All();
-            HasMany(n => n.Tags).Cascade.All();
+            HasManyToMany(n => n.Tags).Cascade.All();
         }
     }
 }

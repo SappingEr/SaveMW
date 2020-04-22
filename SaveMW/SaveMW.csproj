@@ -197,6 +197,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NoteController.cs" />
+    <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Extensions\DBFileProvider.cs" />
     <Compile Include="Extensions\FSFileProvider.cs" />
     <Compile Include="Extensions\IFileProvider.cs" />
@@ -214,6 +215,8 @@
     <Compile Include="Models\AccountViewModels\RegisterViewModel.cs" />
     <Compile Include="Models\AdminViewModels\AdminUserListViewModel.cs" />
     <Compile Include="Models\AdminViewModels\DeleteUserViewModel.cs" />
+    <Compile Include="Models\NoteViewModels\NotesListViewModel.cs" />
+    <Compile Include="Models\NoteViewModels\NotesPagingListViewModel.cs" />
     <Compile Include="Models\NoteViewModels\NoteViewModel.cs" />
     <Compile Include="Models\Paging.cs" />
     <Compile Include="Models\SortLinkModel.cs" />
@@ -228,8 +231,10 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Pic\PDF ico.png" />
     <Content Include="Content\Pic\sort-down.png" />
     <Content Include="Content\Pic\sort-up.png" />
+    <Content Include="Content\Pic\word ico.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -435,6 +440,12 @@
     <Content Include="Scripts\tinymce\skins\ui\oxide\fonts\tinymce-mobile.woff" />
     <Content Include="Scripts\tinymce\skins\ui\oxide-dark\fonts\tinymce-mobile.woff" />
     <Content Include="Scripts\tinymce\langs\readme.md" />
+    <Content Include="Views\Note\Notes.cshtml" />
+    <Content Include="Views\Shared\_SearchNote.cshtml" />
+    <Content Include="Views\Note\Search.cshtml" />
+    <Content Include="Views\Shared\_ExtSearchNote.cshtml" />
+    <Content Include="Views\Shared\_TagSearch.cshtml" />
+    <Content Include="Views\Tag\TagSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\UploadFiles\" />

@@ -11,6 +11,6 @@ namespace SaveMW.Models.AdminViewModels
 
         public Paging Paging { get; set; }
 
-        public FetchOptions FetchOptions { get; set; } = new FetchOptions();
+        public FetchOptions FetchOptions { get; set; }
     }
 }

@@ -44,7 +44,26 @@ namespace SaveMW.Models.Repositories
                         crit.Add(Restrictions.Le("CreationDate", filter.CreationDate.To.Value));
                     }
                 }
+
             }
+        }
+
+        public IEnumerable<Note> UserNotes(User user, NoteFilter filter, FetchOptions options = null)
+        {
+            var crit = session.CreateCriteria<Note>()                
+                .Add(Restrictions.Eq("Author", user));
+            SetupFilter(filter, crit);
+            SetupFetchOptions(crit, options);
+            return crit.List<Note>();
+        }
+
+        public int Count(User user, NoteFilter filter)
+        {
+            var crit = session.CreateCriteria<Note>()               
+               .Add(Restrictions.Eq("Author", user));
+            SetupFilter(filter, crit);
+            crit.SetProjection(Projections.Count("Id"));
+            return Convert.ToInt32(crit.UniqueResult());
         }
     }
 }

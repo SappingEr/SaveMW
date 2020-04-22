@@ -17,9 +17,8 @@ namespace SaveMW.Controllers
         [HttpGet]
         public ActionResult UserList(int? page, UserFilter filter, FetchOptions options)
         {
-            int count = 20;
-            int start = ((page ?? 1) - 1) * count;
-            options.Start = start;
+            int count = 20;           
+            options.Start = ((page ?? 1) - 1) * count;
             options.Count = count;
             int userCount = userRepository.Count(filter);
             var users = userRepository.Find(filter, options);

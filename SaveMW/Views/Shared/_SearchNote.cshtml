@@ -1,7 +1,6 @@
-﻿@model SaveMW.Models.Filters.UserFilter
+﻿@model SaveMW.Models.Filters.NoteFilter
 
-@using (Html.BeginForm(null, null, FormMethod.Get))
-{
+<form method="get">
     <div class="input-group">
         <div class="input-group">
             @Html.EditorFor(model => model.SearchString, new { htmlAttributes = new { @class = "form-control" } })
@@ -10,6 +9,7 @@
             </div>
         </div>
     </div>
-}
+</form>
 
 <br />
+

@@ -1,17 +1,19 @@
 ﻿@model SaveMW.Models.SortLinkModel
 
-<a href="@Url.Action(Model.ActionName, Model.ControllerName, Model.RouteValues)">
-    @Model.LinkText
-    @if (Model.SortDirection.HasValue)
-    {
-        if (Model.SortDirection.Value == System.Web.UI.WebControls.SortDirection.Ascending)
+    <a href="@Url.Action(Model.ActionName, Model.ControllerName, Model.RouteValues)">
+        @Model.LinkText
+        @if (Model.SortDirection.HasValue)
         {
-            <img src="~/Content/Pic/sort-up.png">
+            if (Model.SortDirection.Value == System.Web.UI.WebControls.SortDirection.Ascending)
+            {
+                @*<img src="~/Content/Pic/sort-up.png">*@
+                <span class="glyphicon glyphicon-triangle-top"></span>
+            }
+            else
+            {
+                @*<img src="~/Content/Pic/sort-down.png" />*@
+                <span class="glyphicon glyphicon-triangle-bottom"></span>
+            }
         }
-        else
-        {
-            <img src="~/Content/Pic/sort-down.png" />
-        }
-    }
-</a>
+    </a>
 

@@ -37,7 +37,7 @@ namespace SaveMW.Models.Repositories
             }
         }
 
-        public IList<User> Find(UserFilter filter, FetchOptions options = null)
+        public IEnumerable<User> Find(UserFilter filter, FetchOptions options = null)
         {
             var crit = session.CreateCriteria<User>();           
             SetupFilter(filter, crit);

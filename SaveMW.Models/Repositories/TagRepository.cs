@@ -20,7 +20,7 @@ namespace SaveMW.Models.Repositories
             {
                 if (!string.IsNullOrEmpty(filter.Name))
                 {
-                    crit.Add(Restrictions.Like("Name", filter.Name, MatchMode.Anywhere));
+                    crit.Add(Restrictions.Eq("Name", filter.Name));
                 }                
             }
         }
@@ -30,6 +30,15 @@ namespace SaveMW.Models.Repositories
             var crit = session.CreateCriteria<Tag>()
                 .Add(Restrictions.InG("Name", tags));
             return crit.List<Tag>();
+        }
+
+        public Tag FindTag(User user, TagFilter filter)
+        {
+            var crit = session.CreateCriteria<Tag>()
+                .CreateCriteria("User")
+                .Add(Restrictions.Eq("User", user));
+            SetupFilter(filter, crit);           
+            return crit.UniqueResult<Tag>();
         }
     }
 }

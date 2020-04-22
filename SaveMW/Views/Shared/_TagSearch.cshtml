@@ -1,10 +1,11 @@
-﻿@model SaveMW.Models.Filters.UserFilter
+﻿@model SaveMW.Models.Filters.TagFilter
 
-@using (Html.BeginForm(null, null, FormMethod.Get))
+
+@using (Html.BeginForm(null, null, FormMethod.Post))
 {
     <div class="input-group">
         <div class="input-group">
-            @Html.EditorFor(model => model.SearchString, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
             <div class="input-group-btn">
                 <button class="btn btn-success" type="submit"><span class="glyphicon glyphicon-search"></span> Поиск</button>
             </div>
