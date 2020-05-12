@@ -1,0 +1,163 @@
+﻿@model SaveMW.Models.NoteViewModels.CreateNoteViewModel
+
+@{
+    ViewBag.Title = "Редактирование заметки";
+}
+@Styles.Render("~/Scripts/tagify")
+
+<h2>Редактирование заметки</h2>
+
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "AjaxAntiForgeryForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Text, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.Text, new { htmlAttributes = new { @id = "tiny" } })
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Tags, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.Tags, new
+                {
+                    htmlAttributes = new
+                    {
+                        @id = "tagify",
+                        @class = "form-control",
+                        @placeholder = "Введите теги через пробел"
+                    }
+                })
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div id="uploadFiles">
+            @Html.Action("Files", new { id = Model.Id })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Show, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Show, new { htmlAttributes = new { @id = "showCheck" } })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input id="submitBtn" type="submit" value="Сохранить" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render(
+            "~/bundles/jqueryval",
+            "~/bundles/tinymce",
+            "~/bundles/tagify");
+
+    <script>
+        $(document).ready(function () {
+
+            $('#showCheck').prop('checked', false);
+
+            let form = $('#AjaxAntiForgeryForm');
+            let token = $('input[name="__RequestVerificationToken"]', form).val();
+
+            tinymce.init({
+                selector: '#tiny',
+                height: '320',
+                language: 'ru',
+                plugins: 'image',
+                plugins: 'code'
+            });
+
+            $('#tagify').tagify({ delimiters: " " });           
+
+            function updateFilesList() {
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("Files", "Note")/' +  @Model.Id,
+                    success: function (data) {
+                        $('#uploadFiles').html(data);
+                    }
+                });
+            }
+           
+            $(document).on('click', '.deleteFile', function () {
+                 let fileId = $(this).val();
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Delete", "FSFile")',
+                    dataType: 'json',
+                    data: { __RequestVerificationToken: token, id: fileId},
+                    success: function (response) {
+                        updateFilesList();
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            });
+
+            
+
+            $(document).on('change', '#uploadBtn', function () {
+                 let noteId =  @Model.Id;
+                let maxFileSize = 1398101;
+                let files = $(this)[0].files;
+                let filesSize = $(this)[0].files[0].size;
+                let data = new FormData();                
+
+                if (filesSize >= maxFileSize) {
+                    $('#helpTextUpload').text("Превышен размер загружаемого файла!").css('color', 'red');
+                    $('#submitBtn').prop('disabled', true);
+                }
+                else {
+                    $('#helpTextUpload').empty();
+                    $('#submitBtn').prop('disabled', false);
+
+                    for (var x = 0; x < files.length; x++) {
+                        data.append("file" + x, files[x]);
+                    }
+                    data.append('id', noteId);
+                    data.append('__RequestVerificationToken', token);
+
+                    $.ajax({
+                        type: 'POST',
+                        processData: false,
+                        contentType: false,
+                        url: '@Url.Action("AjaxFileUpload", "Note")',
+                        data: data,
+                        success: function () {
+                            updateFilesList();
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

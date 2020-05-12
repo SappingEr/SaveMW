@@ -1,0 +1,44 @@
+﻿@model SaveMW.Models.NoteViewModels.FilesViewModel
+
+@if (Model.Files != null)
+{
+    <dlv>
+        <label for="files" class="control-label col-md-2">Документы</label>
+        <div id="files" class="col-md-10">
+            @foreach (var file in Model.Files)
+            {
+                <dl id="@file.Id" class="dl-horizontal">
+                    <dt>- @file.Name</dt>
+                    <dd>
+                        <button value="@file.Id" type="button" class="deleteFile btn btn-link">
+                            <span class="glyphicon glyphicon-trash" style="color:red"></span>
+                        </button>
+                    </dd>
+                </dl>
+            }
+        </div>
+    </dlv>
+}
+
+@if (Model.Files == null)
+{
+    <label for="files" class="control-label col-md-2">Документы</label>
+    <p id="files" class="col-md-offset-2 col-md-10">Нет загруженных документов.</p>
+}
+
+@if (Model.Files == null || Model.Files.Count() < 3)
+{
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <label class="btn btn-default">
+                <input id="uploadBtn" type="file" name="files" accept=".pdf, .docx">
+            </label>
+            <p>Поддерживаемые форматы: .pdf, .docx, объем: 1,5Мб</p>
+            <p id="helpTextUpload"></p>
+        </div>
+    </div>
+}
+
+
+
+

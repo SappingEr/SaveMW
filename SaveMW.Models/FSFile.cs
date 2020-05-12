@@ -1,6 +1,6 @@
 ﻿namespace SaveMW.Models
 {
-    public class FSFile : File
+    public class FSFile : FileDetails
     {
         public virtual Note Note { get; set; } 
         

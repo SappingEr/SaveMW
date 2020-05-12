@@ -22,9 +22,11 @@ namespace SaveMW.Models.NoteViewModels
         [DataType(DataType.MultilineText)]
         public string Text { get; set; }
 
+        [Display(Name = "Дата создания")]
         public DateTime CreationDate { get; set; }
 
-        [Display(Name = "Теги")]
-        public string Tags { get; set; }
+        [Display(Name = "Опубликовать")]
+        public bool Show { get; set; }
+        
     }
 }

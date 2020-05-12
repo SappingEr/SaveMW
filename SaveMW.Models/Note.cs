@@ -20,5 +20,7 @@ namespace SaveMW.Models
         public virtual IList<FSFile> Files { get; set; }
 
         public virtual IList<Tag> Tags { get; set; }
+
+        public virtual bool Show { get; set; }
     }
 }

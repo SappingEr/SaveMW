@@ -74,6 +74,7 @@
       <HintPath>..\packages\Remotion.Linq.EagerFetching.2.2.0\lib\net45\Remotion.Linq.EagerFetching.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.ServiceModel" />
@@ -89,7 +90,7 @@
   <ItemGroup>
     <Compile Include="DBFile.cs" />
     <Compile Include="FetchOptions.cs" />
-    <Compile Include="File.cs" />
+    <Compile Include="FileDetails.cs" />
     <Compile Include="Filters\BaseFilter.cs" />
     <Compile Include="Filters\DateRange.cs" />
     <Compile Include="Filters\DBFileFilter.cs" />
@@ -100,7 +101,7 @@
     <Compile Include="Filters\UserFilter.cs" />
     <Compile Include="FSFile.cs" />
     <Compile Include="Mappings\DBFileMap.cs" />
-    <Compile Include="Mappings\FileMap.cs" />
+    <Compile Include="Mappings\FileDetailsMap.cs" />
     <Compile Include="Mappings\FSFileMap.cs" />
     <Compile Include="Mappings\NoteMap.cs" />
     <Compile Include="Mappings\TagMap.cs" />

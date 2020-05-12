@@ -195,15 +195,18 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\FSFileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NoteController.cs" />
     <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Extensions\DBFileProvider.cs" />
+    <Compile Include="Extensions\FileConverter.cs" />
     <Compile Include="Extensions\FSFileProvider.cs" />
     <Compile Include="Extensions\IFileProvider.cs" />
     <Compile Include="Extensions\FileProviderOp.cs" />
     <Compile Include="Extensions\TagSerializer.cs" />
     <Compile Include="Helpers\HtmlExtensions.cs" />
+    <Compile Include="Helpers\NoteHelper.cs" />
     <Compile Include="Helpers\PagingHelpers.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -215,6 +218,9 @@
     <Compile Include="Models\AccountViewModels\RegisterViewModel.cs" />
     <Compile Include="Models\AdminViewModels\AdminUserListViewModel.cs" />
     <Compile Include="Models\AdminViewModels\DeleteUserViewModel.cs" />
+    <Compile Include="Models\NoteViewModels\DetailsNoteViewModel.cs" />
+    <Compile Include="Models\NoteViewModels\CreateNoteViewModel.cs" />
+    <Compile Include="Models\NoteViewModels\FilesViewModel.cs" />
     <Compile Include="Models\NoteViewModels\NotesListViewModel.cs" />
     <Compile Include="Models\NoteViewModels\NotesPagingListViewModel.cs" />
     <Compile Include="Models\NoteViewModels\NoteViewModel.cs" />
@@ -241,12 +247,21 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="App_Data\UploadFiles\20" />
+    <Content Include="App_Data\UploadFiles\50" />
+    <Content Include="App_Data\UploadFiles\60" />
+    <Content Include="App_Data\UploadFiles\70" />
+    <Content Include="App_Data\UploadFiles\71" />
+    <Content Include="App_Data\UploadFiles\80" />
+    <Content Include="App_Data\UploadFiles\90" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -443,15 +458,18 @@
     <Content Include="Views\Note\Notes.cshtml" />
     <Content Include="Views\Shared\_SearchNote.cshtml" />
     <Content Include="Views\Note\Search.cshtml" />
-    <Content Include="Views\Shared\_ExtSearchNote.cshtml" />
-    <Content Include="Views\Shared\_TagSearch.cshtml" />
+    <Content Include="Views\Shared\_ExtSearchUserNote.cshtml" />
+    <Content Include="Views\Shared\_SearchTag.cshtml" />
     <Content Include="Views\Tag\TagSearch.cshtml" />
+    <Content Include="Views\Note\Note.cshtml" />
+    <Content Include="Views\Note\EditNote.cshtml" />
+    <Content Include="Views\Note\Files.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\UploadFiles\" />
     <Folder Include="Scripts\tinymce\themes\advanced\" />
     <Folder Include="Scripts\tinymce\themes\skin\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\FSFile\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -1,13 +1,12 @@
 ﻿using SaveMW.Models;
 using SaveMW.Models.Repositories;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Web;
 
 namespace SaveMW.Extensions
 {
-    public class FSFileProvider : IFileProvider
+    public class FSFileProvider : IFileProvider<FSFile>
     {
         private FSFileRepository fSFileRepository;
 
@@ -18,16 +17,25 @@ namespace SaveMW.Extensions
 
         public FileProviderOp Provider { get; } = FileProviderOp.FileSys;
 
-        public void Load(int fileId)
-        {
-           
+        private int k = 0;
 
-            throw new NotImplementedException();
+        private string directoryPath = HttpContext.Current.Server.MapPath(@"~\App_Data\UploadFiles\");
+
+        public FileStream Load(int fileId)
+        {
+            FSFile file = fSFileRepository.Load(fileId);
+            if (file != null)
+            {
+                string filepath = directoryPath + file.Id + file.Key;
+                FileStream fs = new FileStream(filepath, FileMode.Open);               
+                string fileType = file.Extention;
+                return fs;
+            }
+            return null;
         }
 
         public IList<FSFile> Save(HttpPostedFileBase[] files)
-        {
-            int k = 0;
+        {            
             IList<FSFile> savedFiles = new List<FSFile>();
             foreach (var file in files)
             {
@@ -41,10 +49,49 @@ namespace SaveMW.Extensions
                         Key = k
                     };
                     fSFileRepository.Save(fSFile);
-                    file.SaveAs(HttpContext.Current.Server.MapPath(@"~\App_Data\UploadFiles\") + fSFile.Id + k);                    
+                    file.SaveAs(directoryPath + fSFile.Id + k);
                     savedFiles.Add(fSFile);
-                    k++;                   
+                    k++;
                 };
+            }
+            return savedFiles;
+        }
+
+        public bool Delete(int fileId)
+        {
+            FSFile file = fSFileRepository.Load(fileId);
+            if (file != null)
+            {
+                string filePath = directoryPath + file.Id + file.Key;
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                    return true;
+                }                
+            }
+            return false;
+        }
+
+        public IList<FSFile> AjaxSave(HttpFileCollectionBase files)
+        {
+            IList<FSFile> savedFiles = new List<FSFile>();
+            foreach (string file in files)
+            {
+                var upload = files[file];
+                if (upload != null)
+                {                   
+                    string fileName = Path.GetFileName(upload.FileName);
+                    FSFile fSFile = new FSFile
+                    {
+                        Name = fileName,
+                        Extention = Path.GetExtension(fileName),
+                        Key = k
+                    };
+                    fSFileRepository.Save(fSFile);
+                    upload.SaveAs(directoryPath + fSFile.Id + k);
+                    savedFiles.Add(fSFile);
+                    k++;                    
+                }
             }
             return savedFiles;
         }

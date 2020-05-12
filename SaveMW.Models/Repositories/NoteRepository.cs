@@ -24,13 +24,8 @@ namespace SaveMW.Models.Repositories
             {
                 if (!string.IsNullOrEmpty(filter.Name))
                 {
-                    crit.Add(Restrictions.Like("NoteName", filter.Name, MatchMode.Anywhere));
-                }
-
-                if (!string.IsNullOrEmpty(filter.Author))
-                {
-                    crit.Add(Restrictions.Like("Author", filter.Author, MatchMode.Anywhere));
-                }
+                    crit.Add(Restrictions.Like("Name", filter.Name, MatchMode.Anywhere));
+                }               
 
                 if (filter.CreationDate != null)
                 {
@@ -55,7 +50,7 @@ namespace SaveMW.Models.Repositories
             SetupFilter(filter, crit);
             SetupFetchOptions(crit, options);
             return crit.List<Note>();
-        }
+        }         
 
         public int Count(User user, NoteFilter filter)
         {

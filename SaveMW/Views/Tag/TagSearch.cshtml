@@ -1,1 +1,12 @@
-﻿
+﻿@using SaveMW.Helpers
+@model SaveMW.Models.NoteViewModels.NotesListViewModel
+
+<br />
+
+@if (Model.Notes != null)
+{
+    @NoteHelper.NoteList(Model);
+}
+
+
+

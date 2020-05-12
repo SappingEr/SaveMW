@@ -1,0 +1,40 @@
+﻿@model SaveMW.Models.Filters.NoteFilter
+
+@using (Html.BeginForm(null, null, FormMethod.Post))
+{
+
+    @Html.AntiForgeryToken()    
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <h4 class="col-md-offset-2">Диапазон дат:</h4>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="dateFrom">От</label>
+            <div class="col-md-10">
+                <input class="form-control" type="date" id="dateFrom" name="CreationDate.From" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="dateTo">До</label>
+            <div class="col-md-10">
+                <input class="form-control" type="date" id="dateTo" name="CreationDate.To" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Найти" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<br />

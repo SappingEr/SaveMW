@@ -1,11 +1,75 @@
 ﻿@using SaveMW.Models.Filters
+@using SaveMW.Helpers
+@model SaveMW.Models.NoteViewModels.NotesListViewModel
 
 @{
     ViewBag.Title = "Расширенный поиск";
 }
 
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "AjaxAntiForgeryForm" }))
+{
+    @Html.AntiForgeryToken()
+}
+
 <h2>Расширенный поиск заметок</h2>
+<p>
+    @Html.ActionLink("Заметки", "Notes", new { id = Model.Id })
+</p>
 
-@Html.Partial("_ExtSearchNote", new NoteFilter())
+<br />
+<p id="byTag"><button type="button" class="btn btn-default">Поиск по тегам</button></p>
+<p id="byExt" hidden><button type="button" class="btn btn-default">Расширенный поиск</button></p>
+<hr />
 
-@Html.Partial("_SearchTag", new NoteFilter())
+<div id="noteForm">
+    @Html.Partial("_ExtSearchUserNote", new NoteFilter())
+</div>
+
+<div hidden id="tagForm">
+    <p><input id="tagVal" type="text" class="form-control" placeholder="Введите название тега"></p>
+    <p><button id="searcTag" class="btn btn-success" type="button">Найти</button></p>
+</div>
+
+<div id="tagSearchResult"></div>
+
+<div id="exSearchResult">
+    @if (Model.Notes != null)
+    {
+        @NoteHelper.NoteList(Model)
+    }
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+            let form = $('#AjaxAntiForgeryForm');
+            let token = $('input[name="__RequestVerificationToken"]', form).val();
+
+            $('#byTag').click(function () {
+                $('#noteForm, #byTag, #exSearchResult').hide('slow');
+                $('#tagForm, #byExt, #tagSearchResult').show('slow');
+            });
+
+            $('#byExt').click(function () {
+                $('#tagForm, #byExt, #tagSearchResult').hide('slow');
+                $('#noteForm, #byTag, #exSearchResult').show('slow');
+            });
+
+            $('#searcTag').click(function () {
+                let id = @Model.Id;
+                let tag = $('#tagVal').val();
+                if (tag.length > 0) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("TagSearch", "Tag")',
+                        data: { __RequestVerificationToken: token, id: id, name: tag },
+                        success: function (data) {
+                             $('#tagSearchResult').html(data);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

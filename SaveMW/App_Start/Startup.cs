@@ -73,7 +73,7 @@ namespace SaveMW.App_Start
                 builder.RegisterType(type);
             }
 
-            builder.RegisterType<FSFileProvider>().As<IFileProvider>();
+            builder.RegisterType<FSFileProvider>().As<IFileProvider<FSFile>>();
 
             builder.RegisterType<TagSerializer>();
 

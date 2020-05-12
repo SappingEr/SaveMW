@@ -1,0 +1,65 @@
+﻿@model SaveMW.Models.NoteViewModels.DetailsNoteViewModel
+
+@{
+    ViewBag.Title = "Заметка";
+}
+
+<h2>@Model.Name</h2>
+
+@if (Model.AuthorFIO != null)
+{
+    <h4> @Model.AuthorFIO</h4>
+}
+
+<h4> @Model.CreationDate.ToString("d")</h4>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Text)
+        </dt>
+
+        <dd>
+            @Html.Raw(Model.Text)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tags)
+        </dt>
+
+        <dd id="tags">
+            @foreach (var tag in Model.Tags)
+            {
+                <span class="label label-info">#@tag.Name</span>
+            }
+        </dd>        
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Files)
+        </dt>
+
+        <dd id="tags">
+            @foreach (var file in Model.Files)
+            {
+                <p>
+                    <a href="@Url.Action("Download", "FSFile", new { id = file.Id })"><span class="glyphicon glyphicon-download"></span>@file.Name</a>
+                </p>
+            }
+        </dd>
+    </dl>
+</div>
+
+
+@if (User.Identity.Name == Model.UserName)
+{
+    <p>
+        @Html.ActionLink("Изменить", "EditNote", new { id = Model.Id, userId = Model.AuthorId }) |
+        @Html.ActionLink("Заметки", "Notes", new { id = Model.AuthorId })
+    </p>
+}
+
+
+
+

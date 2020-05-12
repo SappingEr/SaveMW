@@ -1,6 +1,6 @@
 ﻿namespace SaveMW.Models
 {
-    public abstract class File
+    public abstract class FileDetails
     {
         public virtual int Id { get; set; }
 
