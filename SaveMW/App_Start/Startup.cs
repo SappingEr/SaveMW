@@ -74,18 +74,9 @@ namespace SaveMW.App_Start
             }
 
             builder.RegisterType<FSFileProvider>().As<IFileProvider<FSFile>>();
+            builder.RegisterType<FSFileProvider>().As<IFileProvider<DBFile>>();
 
-            builder.RegisterType<TagSerializer>();
-
-            //var fileProviderInterfaceName = typeof(IFileProvider).FullName;
-            //foreach (var type in Assembly.GetAssembly(typeof(Startup)).GetTypes())
-            //{
-            //    var inter = type.GetInterface(fileProviderInterfaceName);
-            //    if (inter != null)
-            //    {
-            //        builder.RegisterType(type).As<IFileProvider>();
-            //    }
-            //}
+            builder.RegisterType<TagSerializer>();           
 
             builder.RegisterControllers(Assembly.GetAssembly(typeof(HomeController)));
 

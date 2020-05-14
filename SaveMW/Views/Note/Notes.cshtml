@@ -1,4 +1,5 @@
-﻿@using SaveMW.Extensions
+﻿@using SaveMW.Helpers
+@using SaveMW.Extensions
 @using SaveMW.Models.Filters
 @model SaveMW.Models.NoteViewModels.NotesPagingListViewModel
 
@@ -7,13 +8,23 @@
 }
 
 <h1 class="text-center">Заметки</h1>
-<div class="row">
-    <div class="col-md-2">
-        <a href="@Url.Action("NewNote", "Note", new { id = Model.Id })" class="btn-lg btn-success btn-block" role="button">
-            Новая Заметка
-        </a>
+
+@if (User.Identity.Name == Model.UserName)
+{
+
+    <div class="row">
+        <div class="col-md-2">
+            <a href="@Url.Action("NewNote", "Note", new { id = Model.Id })" class="btn-lg btn-success btn-block" role="button">
+                Новая Заметка
+            </a>
+        </div>
     </div>
-</div>
+}
+else
+{
+    <h3>@Model.FIO</h3>
+}
+
 
 <br />
 
@@ -31,11 +42,15 @@
     <div class="col-md-4">
         @Html.Partial("_SearchNote", new NoteFilter())
     </div>
-    <div class="col-md-2">
-        <a href="@Url.Action("Search", "Note", new { id = Model.Id })" class="btn btn-default btn-block" role="button">
-            Расширенный поиск
-        </a>       
-    </div>
+
+    @if (User.Identity.Name == Model.UserName)
+    {
+        <div class="col-md-2">
+            <a href="@Url.Action("Search", "Note", new { id = Model.Id })" class="btn btn-default btn-block" role="button">
+                Расширенный поиск
+            </a>
+        </div>
+    }
 </div>
 
 <hr />
@@ -50,7 +65,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <a href="@Url.Action("Note", "Note", new { id = note.Id })">
-                            <h3 class="text-center">@note.Name</h3>
+                            <h3 class="noteName text-center">@NoteHelper.TrimText(30, note.Name)</h3>
                         </a>
                         @if (note.Tags.Count > 0)
                         {
@@ -62,12 +77,13 @@
                     </div>
 
                     <div class="panel-body">
-                        <h4 class="text-center">Документы:</h4>
+
                         @if (note.Files.Count > 0)
                         {
+                            <h4 class="text-center">Документы:</h4>
                             foreach (var file in note.Files)
                             {
-                                <p> - @file.Name</p>
+                                <p> - @NoteHelper.TrimText(35, file.Name)</p>
                             }
                         }
                         else

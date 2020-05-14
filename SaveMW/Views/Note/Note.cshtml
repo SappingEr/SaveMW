@@ -34,7 +34,7 @@
             {
                 <span class="label label-info">#@tag.Name</span>
             }
-        </dd>        
+        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.Files)
@@ -52,13 +52,18 @@
 </div>
 
 
-@if (User.Identity.Name == Model.UserName)
-{
-    <p>
-        @Html.ActionLink("Изменить", "EditNote", new { id = Model.Id, userId = Model.AuthorId }) |
-        @Html.ActionLink("Заметки", "Notes", new { id = Model.AuthorId })
-    </p>
-}
+
+
+<p>
+    @if (User.Identity.Name == Model.UserName)
+    {
+        @Html.ActionLink("Изменить", "EditNote", new { id = Model.Id, userId = Model.AuthorId })
+        <span>|</span>
+    }
+    @Html.ActionLink("Заметки", "Notes", new { id = Model.AuthorId })
+</p>
+
+
 
 
 

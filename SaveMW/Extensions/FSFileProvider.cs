@@ -15,8 +15,6 @@ namespace SaveMW.Extensions
             this.fSFileRepository = fSFileRepository;
         }
 
-        public FileProviderOp Provider { get; } = FileProviderOp.FileSys;
-
         private int k = 0;
 
         private string directoryPath = HttpContext.Current.Server.MapPath(@"~\App_Data\UploadFiles\");
@@ -27,8 +25,7 @@ namespace SaveMW.Extensions
             if (file != null)
             {
                 string filepath = directoryPath + file.Id + file.Key;
-                FileStream fs = new FileStream(filepath, FileMode.Open);               
-                string fileType = file.Extention;
+                FileStream fs = new FileStream(filepath, FileMode.Open);              
                 return fs;
             }
             return null;

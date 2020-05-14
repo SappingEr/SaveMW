@@ -8,8 +8,6 @@ namespace SaveMW.Extensions
     public interface IFileProvider<T>
         where T : class
     {
-        FileProviderOp Provider { get; }
-
         IList<T> Save(HttpPostedFileBase[] files);
 
         IList<T> AjaxSave(HttpFileCollectionBase files);

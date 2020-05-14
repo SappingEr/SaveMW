@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SaveMW.Models.UserViewModels;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace SaveMW.Models.AccountViewModels
 {
     public class RegisterViewModel : EditViewModel
-    {  
+    {
         [StringLength(30)]
         [Display(Name = "Пароль")]
         [DataType(DataType.Password)]
@@ -19,6 +16,6 @@ namespace SaveMW.Models.AccountViewModels
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Введите пароль повторно")]
         [Compare("Password", ErrorMessage = "Пароли не совпадают")]
-        public string ConfirmPassword { get; set; }        
+        public string ConfirmPassword { get; set; }
     }
 }

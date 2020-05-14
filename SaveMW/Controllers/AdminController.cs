@@ -2,6 +2,7 @@
 using SaveMW.Models.AdminViewModels;
 using SaveMW.Models.Filters;
 using SaveMW.Models.Repositories;
+using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 
@@ -21,7 +22,7 @@ namespace SaveMW.Controllers
             options.Start = ((page ?? 1) - 1) * count;
             options.Count = count;
             int userCount = userRepository.Count(filter);
-            var users = userRepository.Find(filter, options);
+            var users = userRepository.Find(filter, options).Where(u => u.Id != 1);
             Paging paging = new Paging { PageNumber = page ?? 1, PageSize = count, TotalItems = userCount };
             AdminUserListViewModel indexModel = new AdminUserListViewModel { Users = users, Paging = paging, FetchOptions = options };
             return View(indexModel);

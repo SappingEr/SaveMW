@@ -1,6 +1,6 @@
 ﻿using SaveMW.Models.NoteViewModels;
+using System;
 using System.Web.Mvc;
-using System.Web.UI.HtmlControls;
 
 namespace SaveMW.Helpers
 {
@@ -38,7 +38,7 @@ namespace SaveMW.Helpers
             {
                 TagBuilder row = new TagBuilder("tr");
 
-                TagBuilder name = new TagBuilder("td");               
+                TagBuilder name = new TagBuilder("td");
                 var link = new TagBuilder("a");
                 link.SetInnerText(note.Name);
                 string url = "/Note/Note/" + note.Id;
@@ -60,7 +60,7 @@ namespace SaveMW.Helpers
                 row.InnerHtml += tags.ToString();
 
                 TagBuilder pub = new TagBuilder("td");
-                if (note.Show ==true)
+                if (note.Show == true)
                 {
                     TagBuilder span = new TagBuilder("span");
                     span.AddCssClass("glyphicon glyphicon-check");
@@ -71,10 +71,26 @@ namespace SaveMW.Helpers
                 TagBuilder date = new TagBuilder("td");
                 date.SetInnerText(note.CreationDate.ToString("d"));
                 row.InnerHtml += date.ToString();
-                    
+
                 table.InnerHtml += row.ToString();
             }
             return new MvcHtmlString(table.ToString());
+        }
+
+        public static MvcHtmlString TrimText(int stringLenght, string text)
+        {
+            if (stringLenght <= 0)
+            {
+                throw new ArgumentOutOfRangeException("maxChars");
+            }
+            if (text == null || text.Length < stringLenght)
+            {
+                return new MvcHtmlString(text);
+            }
+            int lastSpaceIndex = text.LastIndexOf(" ", stringLenght);
+            int substringLength = (lastSpaceIndex > 0) ? lastSpaceIndex : stringLenght;
+            var trimString = text.Substring(0, substringLength).Trim() + "...";
+            return new MvcHtmlString(trimString);
         }
     }
 }

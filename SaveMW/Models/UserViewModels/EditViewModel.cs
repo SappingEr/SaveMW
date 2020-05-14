@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SaveMW.Models.AccountViewModels
+namespace SaveMW.Models.UserViewModels
 {
     public class EditViewModel
     {

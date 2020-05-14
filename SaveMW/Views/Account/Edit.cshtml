@@ -1,4 +1,4 @@
-﻿@model SaveMW.Models.AccountViewModels.EditViewModel
+﻿@model SaveMW.Models.UserViewModels.EditViewModel
 
 @{
     ViewBag.Title = "Данные пользователя";
@@ -40,7 +40,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Назад", "Info", "User", new { id = Model.Id })
 </div>
 
 @section Scripts {

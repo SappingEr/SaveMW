@@ -11,5 +11,7 @@ namespace SaveMW.Models.Filters
         public string Author { get; set; }
         
         public DateRange CreationDate { get; set; }
+
+        public bool Show { get; set; }
     }
 }

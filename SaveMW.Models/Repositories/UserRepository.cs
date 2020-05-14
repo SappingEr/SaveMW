@@ -68,5 +68,11 @@ namespace SaveMW.Models.Repositories
             }
             return Load(userId);
         }
+
+        public bool CheckCurrentUser(int id)
+        {
+            int currentUserId = GetCurrentUser().Id;
+            return (id != currentUserId) ? false : true;
+        }
     }
 }

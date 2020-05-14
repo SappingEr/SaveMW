@@ -25,7 +25,12 @@ namespace SaveMW.Models.Repositories
                 if (!string.IsNullOrEmpty(filter.Name))
                 {
                     crit.Add(Restrictions.Like("Name", filter.Name, MatchMode.Anywhere));
-                }               
+                }
+
+                if (filter.Show == true)
+                {
+                    crit.Add(Restrictions.Ge("Show", true));
+                }
 
                 if (filter.CreationDate != null)
                 {

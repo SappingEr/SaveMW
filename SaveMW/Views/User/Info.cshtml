@@ -1,0 +1,36 @@
+﻿@model SaveMW.Models.UserViewModels.InfoViewModel
+
+@{
+    ViewBag.Title = "Пользователь";
+}
+
+
+<div class="row">
+    <div class="col-md-3">
+
+
+
+    </div>
+    <div class="col-md-9">
+        <h2>@Model.UserName</h2>
+
+        <h4>@Model.FIO</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Заметок:
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.NotesCount)
+            </dd>
+        </dl>
+        <p>
+            @Html.ActionLink("Изменить данные", "Edit", "User", new { id = Model.Id }) |
+            @Html.ActionLink("Сменить пароль", "ChangePass", "Account", new { id = Model.Id })
+        </p>
+    </div>
+
+</div>
+
+
+

@@ -1,6 +1,7 @@
 ﻿using SaveMW.Extensions;
 using SaveMW.Models;
 using SaveMW.Models.Repositories;
+using System.IO;
 using System.Web;
 using System.Web.Mvc;
 
@@ -24,7 +25,7 @@ namespace SaveMW.Controllers
             FSFile file = fSFileRepository.Load(id);
             if (file != null)
             {
-                var stream = fileProvider.Load(id);
+                FileStream stream = fileProvider.Load(file.Id);
                 return File(stream, file.Extention, file.Name);
             }
             return HttpNotFound("Файл не найден");
@@ -32,7 +33,7 @@ namespace SaveMW.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
+        public ActionResult AjaxDelete(int id)
         {
             FSFile file = fSFileRepository.Load(id);
             if (file != null)

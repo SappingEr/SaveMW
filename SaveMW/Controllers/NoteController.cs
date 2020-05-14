@@ -12,13 +12,13 @@ using System.Web.Mvc;
 
 namespace SaveMW.Controllers
 {
+    [Authorize]
     public class NoteController : BaseController
     {
         private IFileProvider<FSFile> fileProvider;
         private TagSerializer tagSerializer;
         private NoteRepository noteRepository;
         private TagRepository tagRepository;
-
         public NoteController(UserRepository userRepository, NoteRepository noteRepository,
             IFileProvider<FSFile> fileProvider, TagRepository tagRepository, TagSerializer tagSerializer) :
             base(userRepository)
@@ -35,13 +35,26 @@ namespace SaveMW.Controllers
             User user = userRepository.Load(id);
             if (user != null)
             {
+                User currentUser = userRepository.GetCurrentUser();
+                if (user.Id != currentUser.Id)
+                {
+                    filter.Show = true;
+                }
                 int count = 6;
                 options.Start = ((page ?? 1) - 1) * count;
                 options.Count = count;
                 int noteCount = noteRepository.Count(user, filter);
                 var notes = noteRepository.UserNotes(user, filter, options);
                 Paging paging = new Paging { PageNumber = page ?? 1, PageSize = count, TotalItems = noteCount };
-                NotesPagingListViewModel notesModel = new NotesPagingListViewModel { Id = id, Notes = notes, Paging = paging, FetchOptions = options };
+                NotesPagingListViewModel notesModel = new NotesPagingListViewModel
+                {
+                    Id = id,
+                    UserName = user.UserName,
+                    FIO = user.FIO,
+                    Notes = notes,
+                    Paging = paging,
+                    FetchOptions = options
+                };
                 return View(notesModel);
             }
             return HttpNotFound("Пользователь не найден");
@@ -57,6 +70,10 @@ namespace SaveMW.Controllers
             User user = userRepository.Load(id);
             if (user != null)
             {
+                if (!userRepository.CheckCurrentUser(user.Id))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
                 return View(new NotesListViewModel { Id = user.Id });
             }
             return HttpNotFound("Пользователь не найден");
@@ -89,8 +106,12 @@ namespace SaveMW.Controllers
             }
             User user = userRepository.Load(id);
             if (user != null)
-            {
-                return View();
+            {                
+                if (!userRepository.CheckCurrentUser(user.Id))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                return View(new CreateNoteViewModel { Id = user.Id });
             }
             return HttpNotFound("Пользователь не найден");
         }
@@ -144,22 +165,26 @@ namespace SaveMW.Controllers
             User user = userRepository.Load(userId);
             if (user != null)
             {
+                if (!userRepository.CheckCurrentUser(user.Id))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
                 Note note = user.Notes.Where(n => n.Id == id).FirstOrDefault();
 
                 if (note != null && note.Author.Id == user.Id)
                 {
                     CreateNoteViewModel noteModel = new CreateNoteViewModel
                     {
-                        Id = note.Id,                         
+                        Id = note.Id,
                         Name = note.Name,
-                        Text = note.Text,                        
+                        Text = note.Text,
                         CreationDate = note.CreationDate,
                         Show = note.Show
                     };
                     if (note.Tags.Count > 0)
                     {
                         noteModel.Tags = tagSerializer.SerializeTags(note.Tags.ToArray());
-                    }                   
+                    }
                     return View(noteModel);
                 }
                 HttpNotFound("Заметка не найдена");
@@ -170,7 +195,6 @@ namespace SaveMW.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult EditNote(CreateNoteViewModel noteModel)
         {
-            
             if (ModelState.IsValid)
             {
                 Note note = noteRepository.Load(noteModel.Id);
@@ -178,13 +202,13 @@ namespace SaveMW.Controllers
                 {
                     note.Name = noteModel.Name;
                     note.Text = noteModel.Text;
-                    note.Show = noteModel.Show;                   
-                    
+                    note.Show = noteModel.Show;
+
                     if (noteModel.Tags != null)
                     {
                         List<Tag> deserializedTags = tagSerializer.DeserializeTags(noteModel.Tags);
-                        note.Tags = tagRepository.TagsToAdd(deserializedTags).ToList();                        
-                    }                   
+                        note.Tags = tagRepository.TagsToAdd(deserializedTags).ToList();
+                    }
                     noteRepository.Save(note);
                     noteRepository.Flush();
                     return RedirectToAction("Note", "Note", new { id = note.Id });
@@ -205,9 +229,9 @@ namespace SaveMW.Controllers
                 {
                     filesModel.Files = note.Files;
                     return PartialView(filesModel);
-                }                
+                }
             }
-            filesModel.Files = null;           
+            filesModel.Files = null;
             return PartialView(filesModel);
         }
 
@@ -258,7 +282,7 @@ namespace SaveMW.Controllers
                 foreach (var file in files)
                 {
                     note.Files.Add(file);
-                }                
+                }
                 noteRepository.Save(note);
                 noteRepository.Flush();
                 return Json(new { success = true });

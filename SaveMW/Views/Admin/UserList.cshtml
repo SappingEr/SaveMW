@@ -42,18 +42,18 @@
             <td>
                 @if (item.UserStatus == SaveMW.Models.UserStatus.Active)
                 {
-                    <button id="@item.Id" type="button" class="userStatus btn btn-danger btn-sm">Заблокировать</button>
+                    <button id="@item.Id" type="button" class="userStatus btn btn-danger btn-xs">Заблокировать</button>
                 }
                 else
                 {
-                    <button id="@item.Id" type="button" class="userStatus btn btn-success btn-sm">Разблокировать</button>
+                    <button id="@item.Id" type="button" class="userStatus btn btn-success btn-xs">Разблокировать</button>
                 }
 
 
 
             </td>
             <td>
-                <a href="@Url.Action("DeleteUser", "Admin", new { id = item.Id })" class="btn btn-danger" role="button">
+                <a href="@Url.Action("DeleteUser", "Admin", new { id = item.Id })" class="btn btn-danger btn-sm" role="button">
                     <span class="glyphicon glyphicon-trash"></span> Удалить
                 </a>                
             </td>

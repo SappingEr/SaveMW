@@ -9,7 +9,7 @@
         <ul class="nav navbar-nav navbar-right">
             @if (User.Identity.GetUserId() == "1")
             {
-                <li>@Html.ActionLink("Администрирование", "Index", "Admin")</li>
+                <li>@Html.ActionLink("Администрирование", "UserList", "Admin")</li>
             }
             <li>
                 @Html.ActionLink(User.Identity.GetUserName(), "Info", "Account", new { id = User.Identity.GetUserId() }, null)

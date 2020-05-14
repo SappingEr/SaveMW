@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Редактирование заметки";
 }
+
 @Styles.Render("~/Scripts/tagify")
 
 <h2>Редактирование заметки</h2>
@@ -70,7 +71,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Назад", "Note", new { id = Model.Id })
 </div>
 
 @section Scripts {
@@ -111,7 +112,7 @@
                  let fileId = $(this).val();
                 $.ajax({
                     type: 'POST',
-                    url: '@Url.Action("Delete", "FSFile")',
+                    url: '@Url.Action("AjaxDelete", "FSFile")',
                     dataType: 'json',
                     data: { __RequestVerificationToken: token, id: fileId},
                     success: function (response) {
