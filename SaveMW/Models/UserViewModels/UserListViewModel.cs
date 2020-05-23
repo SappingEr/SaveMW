@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
-namespace SaveMW.Models.AdminViewModels
+namespace SaveMW.Models.UserViewModels
 {
-    public class AdminUserListViewModel
+    public class UserListViewModel
     {
         public IEnumerable<User> Users { get; set; }
 

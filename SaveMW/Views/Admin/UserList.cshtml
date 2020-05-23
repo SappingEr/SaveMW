@@ -1,6 +1,6 @@
 ﻿@using SaveMW.Extensions
 @using SaveMW.Models.Filters
-@model SaveMW.Models.AdminViewModels.AdminUserListViewModel
+@model SaveMW.Models.UserViewModels.UserListViewModel
 
 
 @{
@@ -33,7 +33,7 @@
     @foreach (var item in Model.Users)
     {
         <tr>
-            <td>
+            <td>               
                 @item.UserName
             </td>
             <td>

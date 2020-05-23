@@ -1,0 +1,66 @@
+﻿@using SaveMW.Helpers
+@using SaveMW.Models.Filters
+@model SaveMW.Models.UserViewModels.UserListViewModel
+
+
+@{
+    ViewBag.Title = "Авторы";
+}
+
+<h1>Авторы</h1>
+
+@Html.Partial("_SearchUser", new UserFilter())
+
+<div class="row">
+
+    <div class="col-md-8">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>
+                        @Html.SortLink("ФИО", "FIO", "AuthorsList", "User", null)
+                    </th>
+                    <th>
+                        @Html.SortLink("Ник", "UserName", "AuthorsList", "User", null)
+                    </th>
+                    <th>Заметок</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Users)
+                {
+
+                    <tr>
+                        <td>
+                            @{ int? id = null;}
+                            @if (item.Avatar != null)
+                            {
+                                id = item.Avatar.Id;
+                            }
+                            @NoteHelpers.ShowAvatar(id, 50)
+                        </td>
+                        <td>
+                            @Html.ActionLink(item.FIO ?? "Неизвестный автор", "Notes", "Note", new { id = item.Id }, null)
+                        </td>
+                        <td>
+                            @item.UserName
+                        </td>
+                        <td>@item.Notes.Count</td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<br />
+<div class="btn-group">
+    @Html.PageLinks(Model.Paging, x => Url.Action("AuthorsList", new
+    {
+        page = x,
+        SortExpression = Model.FetchOptions.SortExpression,
+        SortDirection = Model.FetchOptions.SortDirection
+    }))
+</div>

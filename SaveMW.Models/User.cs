@@ -16,7 +16,7 @@ namespace SaveMW.Models
         [FastSearch]
         public virtual string FIO { get; set; }
 
-        public virtual IList<Note> Notes { get; set; } = new List<Note>();
+        public virtual IList<Note> Notes { get; set; }
 
         public virtual UserStatus UserStatus { get; set; }
 

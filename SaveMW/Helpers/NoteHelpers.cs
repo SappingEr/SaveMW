@@ -4,7 +4,7 @@ using System.Web.Mvc;
 
 namespace SaveMW.Helpers
 {
-    public static class NoteHelper
+    public static class NoteHelpers
     {
         public static MvcHtmlString NoteList(NotesListViewModel model)
         {
@@ -91,6 +91,24 @@ namespace SaveMW.Helpers
             int substringLength = (lastSpaceIndex > 0) ? lastSpaceIndex : stringLenght;
             var trimString = text.Substring(0, substringLength).Trim() + "...";
             return new MvcHtmlString(trimString);
+        }
+
+        public static MvcHtmlString ShowAvatar(int? avatarId, int width)
+        {
+            string src = null;
+            if (avatarId != null)
+            {
+                src = "/DBFile/GetImage?id=" + avatarId;
+            }
+            else
+            {
+                src = "/Content/Pic/avatar.png";
+            }
+            TagBuilder avatar = new TagBuilder("img");
+            avatar.AddCssClass("img-thumbnail");
+            avatar.MergeAttribute("src", src);
+            avatar.MergeAttribute("style", "width:" + width + "px");
+            return MvcHtmlString.Create(avatar.ToString(TagRenderMode.SelfClosing));
         }
     }
 }

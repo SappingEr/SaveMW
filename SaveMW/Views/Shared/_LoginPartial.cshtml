@@ -12,7 +12,7 @@
                 <li>@Html.ActionLink("Администрирование", "UserList", "Admin")</li>
             }
             <li>
-                @Html.ActionLink(User.Identity.GetUserName(), "Info", "Account", new { id = User.Identity.GetUserId() }, null)
+                @Html.ActionLink(User.Identity.GetUserName(), "Info", "User", new { id = User.Identity.GetUserId()}, null)
             </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">ВЫХОД</a></li>
         </ul>

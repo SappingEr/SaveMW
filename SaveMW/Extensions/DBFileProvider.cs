@@ -40,7 +40,13 @@ namespace SaveMW.Extensions
 
         public bool Delete(int fileId)
         {
-            throw new NotImplementedException();
+            DBFile file = dBFileRepository.Load(fileId);
+            if (file != null)
+            {
+                dBFileRepository.Delete(file);                
+                return true;
+            }
+            return false;
         }
 
         public FileStream Load(int fileId)

@@ -3,7 +3,7 @@ using System;
 using System.Text;
 using System.Web.Mvc;
 
-namespace SaveMW.Extensions
+namespace SaveMW.Helpers
 {
     public static class PagingHelpers
     {

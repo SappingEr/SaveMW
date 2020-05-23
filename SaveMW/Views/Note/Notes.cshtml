@@ -65,7 +65,7 @@ else
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <a href="@Url.Action("Note", "Note", new { id = note.Id })">
-                            <h3 class="noteName text-center">@NoteHelper.TrimText(30, note.Name)</h3>
+                            <h3 class="noteName text-center">@NoteHelpers.TrimText(30, note.Name)</h3>
                         </a>
                         @if (note.Tags.Count > 0)
                         {
@@ -83,7 +83,7 @@ else
                             <h4 class="text-center">Документы:</h4>
                             foreach (var file in note.Files)
                             {
-                                <p> - @NoteHelper.TrimText(35, file.Name)</p>
+                                <p> - @NoteHelpers.TrimText(35, file.Name)</p>
                             }
                         }
                         else

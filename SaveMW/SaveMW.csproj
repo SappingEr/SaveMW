@@ -208,7 +208,7 @@
     <Compile Include="Extensions\FileProviderOp.cs" />
     <Compile Include="Extensions\TagSerializer.cs" />
     <Compile Include="Helpers\HtmlExtensions.cs" />
-    <Compile Include="Helpers\NoteHelper.cs" />
+    <Compile Include="Helpers\NoteHelpers.cs" />
     <Compile Include="Helpers\PagingHelpers.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -219,7 +219,7 @@
     <Compile Include="Models\UserViewModels\InfoViewModel.cs" />
     <Compile Include="Models\AccountViewModels\LoginViewModel.cs" />
     <Compile Include="Models\AccountViewModels\RegisterViewModel.cs" />
-    <Compile Include="Models\AdminViewModels\AdminUserListViewModel.cs" />
+    <Compile Include="Models\UserViewModels\UserListViewModel.cs" />
     <Compile Include="Models\AdminViewModels\DeleteUserViewModel.cs" />
     <Compile Include="Models\NoteViewModels\DetailsNoteViewModel.cs" />
     <Compile Include="Models\NoteViewModels\CreateNoteViewModel.cs" />
@@ -240,9 +240,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Pic\avatar.png" />
     <Content Include="Content\Pic\PDF ico.png" />
-    <Content Include="Content\Pic\sort-down.png" />
-    <Content Include="Content\Pic\sort-up.png" />
     <Content Include="Content\Pic\word ico.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -250,13 +249,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="App_Data\UploadFiles\20" />
-    <Content Include="App_Data\UploadFiles\50" />
-    <Content Include="App_Data\UploadFiles\60" />
-    <Content Include="App_Data\UploadFiles\70" />
-    <Content Include="App_Data\UploadFiles\71" />
-    <Content Include="App_Data\UploadFiles\80" />
-    <Content Include="App_Data\UploadFiles\90" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -467,8 +459,11 @@
     <Content Include="Views\Note\Note.cshtml" />
     <Content Include="Views\Note\EditNote.cshtml" />
     <Content Include="Views\Note\Files.cshtml" />
+    <Content Include="Views\User\Avatar.cshtml" />
+    <Content Include="Views\User\AuthorsList.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\UploadFiles\" />
     <Folder Include="Scripts\tinymce\themes\advanced\" />
     <Folder Include="Scripts\tinymce\themes\skin\" />
     <Folder Include="Views\Base\" />

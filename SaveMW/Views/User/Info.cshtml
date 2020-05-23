@@ -4,12 +4,24 @@
     ViewBag.Title = "Пользователь";
 }
 
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @id = "AjaxAntiForgeryForm" }))
+{
+    @Html.AntiForgeryToken()
+}
 
 <div class="row">
     <div class="col-md-3">
-
-
-
+        <div id="avatar">
+            @Html.Action("Avatar", new { id = Model.Id })
+        </div>
+        <br />
+        <div>
+            <label class="btn btn-default">
+                <input id="uploadBtn" type="file" name="file" accept=".jpg">
+            </label>
+            <p>Поддерживаемые форматы: .jpg, объем: 1,5Мб</p>
+            <p id="helpTextUpload"></p>
+        </div>
     </div>
     <div class="col-md-9">
         <h2>@Model.UserName</h2>
@@ -25,12 +37,86 @@
             </dd>
         </dl>
         <p>
-            @Html.ActionLink("Изменить данные", "Edit", "User", new { id = Model.Id }) |
-            @Html.ActionLink("Сменить пароль", "ChangePass", "Account", new { id = Model.Id })
+            @Html.ActionLink("Изменить данные", "Edit", "User", new { id = Model.Id }, null) |
+            @Html.ActionLink("Сменить пароль", "ChangePass", "Account", new { id = Model.Id }, null)
         </p>
     </div>
 
 </div>
 
+@section Scripts {
 
+    <script>
+            $(document).ready(function () {
+                $('[data-toggle="popover"]').popover();
+
+
+                let form = $('#AjaxAntiForgeryForm');
+                let token = $('input[name="__RequestVerificationToken"]', form).val();
+
+                function updateAvatar() {
+                    $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("Avatar", "User")/' +  @Model.Id,
+                    success: function (data) {
+                        $('#avatar').html(data);
+                        }
+                    });
+                }
+
+                $(document).on('change', '#uploadBtn', function () {
+                    let noteId =  @Model.Id;
+                    let maxFileSize = 1398101;
+                    let files = $(this)[0].files;
+                    let filesSize = $(this)[0].files[0].size;
+                    let data = new FormData();
+
+                    if (filesSize >= maxFileSize) {
+                        $('#helpTextUpload').text("Превышен размер загружаемого файла!").css('color', 'red');
+                        $('#submitBtn').prop('disabled', true);
+                    }
+                    else {
+                        $('#helpTextUpload').empty();
+                        $('#submitBtn').prop('disabled', false);
+
+                        for (var x = 0; x < files.length; x++) {
+                            data.append("file" + x, files[x]);
+                        }
+                        data.append('id', noteId);
+                        data.append('__RequestVerificationToken', token);
+
+                        $.ajax({
+                            type: 'POST',
+                            processData: false,
+                            contentType: false,
+                            url: '@Url.Action("AjaxAvatarUpload", "User")',
+                            data: data,
+                            success: function () {
+                                updateAvatar();
+                            }
+                        });
+                    }
+                });
+
+                 $(document).on('click', '.delAvatar', function () {
+                     let id = $(this).attr('id');
+                     $.ajax({
+                         type: 'POST',
+                         url: '@Url.Action("DeleteAvatar", "User")',
+                         dataType: 'json',
+                         data: { __RequestVerificationToken: token, userId: id},
+                         success: function () {
+                            updateAvatar();
+                         },
+                         error: function (response) {
+                             alert(response.responseText);
+                         }
+                    });
+                });
+            });
+
+
+    </script>
+
+}
 

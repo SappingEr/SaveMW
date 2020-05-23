@@ -4,7 +4,7 @@ using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 
-namespace SaveMW.Extensions
+namespace SaveMW.Helpers
 {
     public static class HtmlExtensions
     {
@@ -39,6 +39,6 @@ namespace SaveMW.Extensions
                 RouteValues = routeValues,
                 LinkText = linkText
             });
-        }
+        }       
     }
 }

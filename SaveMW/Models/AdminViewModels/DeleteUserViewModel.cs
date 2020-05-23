@@ -1,4 +1,4 @@
-﻿using SaveMW.Models.AccountViewModels;
+﻿using SaveMW.Models.UserViewModels;
 
 namespace SaveMW.Models.AdminViewModels
 {

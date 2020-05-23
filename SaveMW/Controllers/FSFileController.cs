@@ -29,7 +29,6 @@ namespace SaveMW.Controllers
                 return File(stream, file.Extention, file.Name);
             }
             return HttpNotFound("Файл не найден");
-
         }
 
         [HttpPost, ValidateAntiForgeryToken]

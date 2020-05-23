@@ -7,7 +7,8 @@ namespace SaveMW.Models.Mappings
         public FileDetailsMap()
         {
             Id(f => f.Id);
-            Map(f => f.Name).Length(300);            
+            Map(f => f.Name).Length(300);
+            Map(f => f.Extention).Length(10);
         }
     }
 }
