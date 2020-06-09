@@ -98,6 +98,25 @@ namespace SaveMW.Controllers
         }
 
         [HttpGet]
+        public ActionResult Published()
+        {
+            int countUploadNotes = 3;
+            int notesCount = noteRepository.PublishedNotes().Count();
+            return View(new PublishedViewModel { CountUploadNotes = countUploadNotes, NotesCount = notesCount });
+        }
+
+        [HttpGet]
+        public ActionResult GetPublishedNotes(int count, int? page)
+        {
+            FetchOptions options = new FetchOptions();
+            options.Start = ((page ?? 1) - 1) * count;
+            options.Count = count;
+            var notes = noteRepository.PublishedNotes(options);
+            PublishedNotesViewModel publishedModel = new PublishedNotesViewModel { Notes = notes };
+            return PartialView(publishedModel);
+        }
+
+        [HttpGet]
         public ActionResult NewNote(int? id)
         {
             if (id == null)
@@ -106,7 +125,7 @@ namespace SaveMW.Controllers
             }
             User user = userRepository.Load(id);
             if (user != null)
-            {                
+            {
                 if (!userRepository.CheckCurrentUser(user.Id))
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

@@ -1,0 +1,70 @@
+﻿@model SaveMW.Models.NoteViewModels.PublishedViewModel
+
+@{
+    ViewBag.Title = "Опубликованные заметки";
+}
+
+<h2>Опубликованнные заметки</h2>
+
+<h4>Всего: @Model.NotesCount</h4>
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div id="noteList" class="col-md-8">
+        @Html.Action("GetPublishedNotes", new { count = Model.CountUploadNotes })
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+            let page = 2;
+            let countUploadNotes = @Model.CountUploadNotes;
+            let notesCount = @Model.NotesCount;
+            let pages = (notesCount / countUploadNotes) + 2;
+            let callback = false;
+
+            function loadNotes() {
+                if (!callback) {
+                    callback = true;
+
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.Action("GetPublishedNotes")' + '?count=' + countUploadNotes + '&page=' + page,
+                        success: function (data) {
+                            if (data.length > 0) {
+                                $("#noteList").append(data);
+                                page++;
+                            }
+                            else {
+                                page--;
+                            }
+                            callback = false;
+                        }
+                    });
+                }
+            }
+
+           
+                $(window).scroll(function () {
+                    if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+                        if ((pages) >= page) {
+                            loadNotes();
+                        }  
+                    }
+                });
+                     
+        });
+
+
+    </script>
+
+
+
+
+}
+
+
+

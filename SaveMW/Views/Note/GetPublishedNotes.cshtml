@@ -1,0 +1,39 @@
+﻿@using SaveMW.Helpers
+@model SaveMW.Models.NoteViewModels.PublishedNotesViewModel
+
+
+@foreach (var item in Model.Notes)
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-md-2">
+                    @(item.Author.Avatar != null ? NoteHelpers.ShowAvatar(item.Author.Avatar.Id, 50) : NoteHelpers.ShowAvatar(null, 50))
+                </div>
+                <div class="col-md-10">
+                    <h4>@item.Author.FIO</h4>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <h3>@item.Name</h3>
+            <p>
+                @foreach (var tag in item.Tags)
+                {
+                    <span class="label label-info">#@tag.Name</span>
+                }
+            </p>
+            <div>
+                @Html.Raw(item.Text)
+            </div>
+            @if (item.Files.Count > 0)
+            {
+                foreach (var file in item.Files)
+                {
+                    <p>@NoteHelpers.ShowFiles(file)</p>
+                }
+            }
+        </div>
+    </div>
+}
+

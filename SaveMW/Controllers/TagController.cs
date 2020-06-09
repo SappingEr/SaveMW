@@ -20,7 +20,7 @@ namespace SaveMW.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult TagSearch(int id, TagFilter tagFilter)
+        public ActionResult TagNotesSearch(int id, TagFilter tagFilter)
         {
             User user = userRepository.Load(id);
             if (user != null)

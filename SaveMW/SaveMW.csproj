@@ -214,6 +214,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels\ChangePassViewModel.cs" />
+    <Compile Include="Models\NoteViewModels\PublishedNotesViewModel.cs" />
+    <Compile Include="Models\NoteViewModels\PublishedViewModel.cs" />
     <Compile Include="Models\UserViewModels\AvatarViewModel.cs" />
     <Compile Include="Models\UserViewModels\EditViewModel.cs" />
     <Compile Include="Models\UserViewModels\InfoViewModel.cs" />
@@ -241,6 +243,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Pic\avatar.png" />
+    <Content Include="Content\Pic\file.png" />
     <Content Include="Content\Pic\PDF ico.png" />
     <Content Include="Content\Pic\word ico.png" />
     <Content Include="favicon.ico" />
@@ -441,7 +444,7 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\User\Info.cshtml" />
     <Content Include="Views\Account\ChangePass.cshtml" />
-    <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\Admin\UserList.cshtml" />
     <Content Include="Views\Shared\SortLink.cshtml" />
     <Content Include="Views\Shared\_SearchUser.cshtml" />
@@ -461,6 +464,8 @@
     <Content Include="Views\Note\Files.cshtml" />
     <Content Include="Views\User\Avatar.cshtml" />
     <Content Include="Views\User\AuthorsList.cshtml" />
+    <Content Include="Views\Note\Published.cshtml" />
+    <Content Include="Views\Note\GetPublishedNotes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\UploadFiles\" />

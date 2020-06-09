@@ -15,7 +15,7 @@
             @Html.Action("Avatar", new { id = Model.Id })
         </div>
         <br />
-        <div>
+        <div id="uploadArea" hidden>
             <label class="btn btn-default">
                 <input id="uploadBtn" type="file" name="file" accept=".jpg">
             </label>
@@ -93,29 +93,32 @@
                             data: data,
                             success: function () {
                                 updateAvatar();
+                                $('#uploadArea').hide();
                             }
                         });
                     }
                 });
 
-                 $(document).on('click', '.delAvatar', function () {
-                     let id = $(this).attr('id');
-                     $.ajax({
-                         type: 'POST',
-                         url: '@Url.Action("DeleteAvatar", "User")',
-                         dataType: 'json',
-                         data: { __RequestVerificationToken: token, userId: id},
-                         success: function () {
-                            updateAvatar();
-                         },
-                         error: function (response) {
-                             alert(response.responseText);
-                         }
+                $(document).on('click', '.delAvatar', function () {
+                    let id = $(this).attr('id');
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("DeleteAvatar", "User")',
+                        dataType: 'json',
+                        data: { __RequestVerificationToken: token, userId: id},
+                        success: function () {
+                           updateAvatar();
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        }
                     });
                 });
+
+                $(document).on('click', '#uploadAvatar', function () {
+                    $('#uploadArea').show('slow');
+                });
             });
-
-
     </script>
 
 }

@@ -8,8 +8,8 @@
             <img style="width:200px" class="img-thumbnail" src="@Url.Action("GetImage", "DBFile", new { id = Model.AvatarId })" />
         </a>
         <ul class="dropdown-menu" role="menu">
-            <li><a href="" id="uploadAvatar">Сменить фото</a></li>
-            <li><a href="" class="delAvatar" id="@Model.UserId">Удалить фото</a></li>
+            <li><a href="#" id="uploadAvatar">Сменить фото</a></li>
+            <li><a href="#" class="delAvatar" id="@Model.UserId">Удалить фото</a></li>
         </ul>
     </div>    
 }
@@ -20,7 +20,7 @@ else
             <img style="width:200px" src="~/Content/Pic/avatar.png" class="img-thumbnail" />
         </a>
         <ul class="dropdown-menu" role="menu">
-            <li><a href="" id="uploadAvatar">Загрузить фото</a></li>            
+            <li><a href="#" id="uploadAvatar">Загрузить фото</a></li>            
         </ul>
     </div>
 }

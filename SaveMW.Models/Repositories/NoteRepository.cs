@@ -55,7 +55,16 @@ namespace SaveMW.Models.Repositories
             SetupFilter(filter, crit);
             SetupFetchOptions(crit, options);
             return crit.List<Note>();
-        }         
+        }
+
+        public IEnumerable<Note> PublishedNotes(FetchOptions options = null)
+        {
+            var crit = session.CreateCriteria<Note>();
+            NoteFilter filter = new NoteFilter { Show = true };
+            SetupFilter(filter, crit);
+            SetupFetchOptions(crit, options);
+            return crit.List<Note>();
+        }
 
         public int Count(User user, NoteFilter filter)
         {

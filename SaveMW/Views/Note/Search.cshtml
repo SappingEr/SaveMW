@@ -62,7 +62,7 @@
                 if (tag.length > 0) {
                     $.ajax({
                         type: 'POST',
-                        url: '@Url.Action("TagSearch", "Tag")',
+                        url: '@Url.Action("TagNotesSearch", "Tag")',
                         data: { __RequestVerificationToken: token, id: id, name: tag },
                         success: function (data) {
                              $('#tagSearchResult').html(data);

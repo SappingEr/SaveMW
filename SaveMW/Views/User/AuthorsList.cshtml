@@ -30,15 +30,9 @@
             <tbody>
                 @foreach (var item in Model.Users)
                 {
-
                     <tr>
                         <td>
-                            @{ int? id = null;}
-                            @if (item.Avatar != null)
-                            {
-                                id = item.Avatar.Id;
-                            }
-                            @NoteHelpers.ShowAvatar(id, 50)
+                            @(item.Avatar != null ? NoteHelpers.ShowAvatar(item.Avatar.Id, 50) : NoteHelpers.ShowAvatar(null, 50))                           
                         </td>
                         <td>
                             @Html.ActionLink(item.FIO ?? "Неизвестный автор", "Notes", "Note", new { id = item.Id }, null)
@@ -48,7 +42,6 @@
                         </td>
                         <td>@item.Notes.Count</td>
                     </tr>
-
                 }
             </tbody>
         </table>

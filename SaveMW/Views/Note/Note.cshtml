@@ -1,4 +1,5 @@
-﻿@model SaveMW.Models.NoteViewModels.DetailsNoteViewModel
+﻿@using SaveMW.Helpers
+@model SaveMW.Models.NoteViewModels.DetailsNoteViewModel
 
 @{
     ViewBag.Title = "Заметка";
@@ -43,16 +44,12 @@
         <dd id="tags">
             @foreach (var file in Model.Files)
             {
-                <p>
-                    <a href="@Url.Action("Download", "FSFile", new { id = file.Id })"><span class="glyphicon glyphicon-download"></span>@file.Name</a>
-                </p>
+                <br />
+                <p>@NoteHelpers.ShowFiles(file)</p>
             }
         </dd>
     </dl>
 </div>
-
-
-
 
 <p>
     @if (User.Identity.Name == Model.UserName)
